@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Characters from "./Characters";
+import { useGlobalContext } from "./context";
 
-function App() {
+const App = () => {
+  const { loading, prev, next, page } = useGlobalContext();
+  if (loading) {
+    return (
+      <div className="loading">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <section className="section">
+        <h1>Rick & Morty API</h1>
+        <Characters />
+        <div className="btn-container">
+          <button className="btn" onClick={prev}>
+            PREV
+          </button>
+          <button className="btn" onClick={next}>
+            NEXT
+          </button>
+          <h4>{page}</h4>
+        </div>
+      </section>
+    </main>
   );
-}
+};
 
 export default App;
